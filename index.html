@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Toril Hokseggen – UX Designer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #e8c4c4;
+    --pink-light: #f5e6e6;
+    --pink-mid: #d4a0a0;
+    --cream: #faf6f2;
+    --warm-white: #fdf9f7;
+    --text: #2a1f1f;
+    --text-muted: #7a6060;
+    --accent: #c47a7a;
+    --card-bg: #fff8f5;
+    --blob: #e8c4c4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 60px;
+    background: rgba(250,246,242,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(232,196,196,0.3);
+  }
+
+  .nav-logo {
+    width: 44px;
+    height: 44px;
+    background: var(--pink);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--text);
+    text-decoration: none;
+    transition: transform 0.2s;
+  }
+  .nav-logo:hover { transform: rotate(-5deg) scale(1.05); }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  /* HERO */
+  #front {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 120px 60px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-blob {
+    position: absolute;
+    width: 520px;
+    height: 520px;
+    background: var(--pink-light);
+    border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
+    top: 80px;
+    left: -80px;
+    z-index: 0;
+    animation: blobFloat 8s ease-in-out infinite;
+  }
+
+  @keyframes blobFloat {
+    0%, 100% { border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%; transform: translateY(0); }
+    50% { border-radius: 40% 60% 45% 55% / 60% 40% 55% 45%; transform: translateY(-16px); }
+  }
+
+  .hero-photo-wrap {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero-photo {
+    width: 340px;
+    height: 420px;
+    object-fit: cover;
+    border-radius: 40% 60% 50% 50% / 40% 40% 60% 60%;
+    border: 6px solid white;
+    box-shadow: 0 20px 60px rgba(196,122,122,0.2);
+  }
+
+  .hero-text {
+    position: relative;
+    z-index: 1;
+    padding-left: 40px;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    background: var(--pink);
+    color: var(--text);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(44px, 5vw, 72px);
+    font-weight: 900;
+    line-height: 1.05;
+    margin-bottom: 20px;
+    color: var(--text);
+  }
+
+  .hero-tagline {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--accent);
+    font-style: italic;
+    margin-bottom: 8px;
+  }
+
+  /* SECTION TITLES */
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 900;
+    margin-bottom: 48px;
+    color: var(--text);
+  }
+
+  /* PROJECTS */
+  #projects {
+    padding: 100px 60px;
+    background: var(--warm-white);
+  }
+
+  .projects-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .project-card {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    background: var(--card-bg);
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid rgba(232,196,196,0.4);
+    box-shadow: 0 4px 24px rgba(196,122,122,0.08);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(196,122,122,0.18);
+  }
+
+  .project-thumb {
+    position: relative;
+    background: var(--pink-light);
+    overflow: hidden;
+  }
+
+  .project-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .project-card:hover .project-thumb img {
+    transform: scale(1.05);
+  }
+
+  .project-label {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    background: rgba(42,31,31,0.82);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    border-radius: 6px;
+  }
+
+  .project-content {
+    padding: 32px 36px;
+  }
+
+  .project-meta {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+  }
+
+  .project-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+
+  .project-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  .project-text {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+
+  /* TOOLBOX */
+  #toolbox {
+    padding: 100px 60px;
+    background: var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .toolbox-blob {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: var(--pink-light);
+    border-radius: 55% 45% 60% 40% / 45% 55% 45% 55%;
+    right: -100px;
+    bottom: -80px;
+    z-index: 0;
+  }
+
+  .toolbox-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    position: relative;
+    z-index: 1;
+    max-width: 760px;
+  }
+
+  .toolbox-group {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 28px;
+    border: 1px solid rgba(232,196,196,0.4);
+  }
+
+  .toolbox-group-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--text);
+  }
+
+  .tool-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tool-chip {
+    background: var(--pink-light);
+    color: var(--text);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  /* ABOUT */
+  #about-me {
+    padding: 100px 60px;
+    background: var(--warm-white);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .about-photo {
+    width: 100%;
+    max-width: 380px;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    border-radius: 30px;
+    box-shadow: 0 20px 60px rgba(196,122,122,0.15);
+  }
+
+  .about-text {
+    font-size: 17px;
+    line-height: 1.8;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+  }
+
+  /* CONTACT */
+  #contact {
+    padding: 80px 60px;
+    background: var(--cream);
+    text-align: center;
+  }
+
+  .contact-label {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 32px;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--card-bg);
+    border: 1px solid rgba(232,196,196,0.5);
+    color: var(--text);
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .contact-link:hover {
+    background: var(--pink);
+    transform: translateY(-2px);
+  }
+
+  /* ANIMATIONS */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 24px;
+    font-size: 12px;
+    color: var(--text-muted);
+    border-top: 1px solid rgba(232,196,196,0.3);
+  }
+
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    #front { grid-template-columns: 1fr; padding: 100px 24px 60px; text-align: center; }
+    .hero-text { padding-left: 0; margin-top: 32px; }
+    .hero-blob { width: 300px; height: 300px; }
+    .hero-photo { width: 240px; height: 300px; }
+    #projects { padding: 60px 24px; }
+    .project-card { grid-template-columns: 1fr; }
+    .project-thumb { height: 200px; }
+    #toolbox { padding: 60px 24px; }
+    .toolbox-grid { grid-template-columns: 1fr; }
+    #about-me { grid-template-columns: 1fr; padding: 60px 24px; gap: 40px; }
+    #contact { padding: 60px 24px; }
+    .contact-links { flex-direction: column; align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#front" class="nav-logo">TH</a>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#toolbox">Skills</a></li>
+    <li><a href="#about-me">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="front">
+  <div class="hero-blob"></div>
+  <div class="hero-photo-wrap">
+    <img
+      class="hero-photo"
+      src="https://framerusercontent.com/images/SHCn0rtQ231UjqGS34GTqwxB4w.jpg"
+      alt="Toril Hokseggen"
+    />
+  </div>
+  <div class="hero-text fade-up">
+    <span class="hero-tag">UX Designer</span>
+    <h1 class="hero-name">Toril<br>Hokseggen</h1>
+    <p class="hero-tagline">I make complex systems intuitive.</p>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <h2 class="section-title fade-up">Projects</h2>
+  <div class="projects-grid">
+
+    <a class="project-card fade-up" href="curly-girls-world.html">
+      <div class="project-thumb">
+        <img src="https://framerusercontent.com/images/Rgjum9WJZYURgWnTzXOZLa22EUY.png" alt="The Curly Girls World">
+        <span class="project-label">E-commerce</span>
+      </div>
+      <div class="project-content">
+        <p class="project-meta">Nordic Design Crew · Oct 2024 – Mar 2025</p>
+        <h3 class="project-title">The Curly Girls World E-Commerce Optimization</h3>
+        <p class="project-section-label">The Challenge</p>
+        <p class="project-text">The Curly Girls World needed optimization across multiple dimensions: site performance, user experience, content organization, and operational efficiency.</p>
+        <p class="project-section-label">My Role</p>
+        <p class="project-text">UX/Product designer working with Nordic Design Crew — customer meetings, optimization analysis, translation standardization, inventory management, and new feature conceptualization.</p>
+      </div>
+    </a>
+
+    <a class="project-card fade-up" href="anicura.html">
+      <div class="project-thumb">
+        <img src="https://framerusercontent.com/images/rcqksGRQJK19qSiA8ifFxCP66HM.png" alt="AniCura Medication Management">
+        <span class="project-label">Bachelor Thesis</span>
+      </div>
+      <div class="project-content">
+        <p class="project-meta">AniCura Veterinary Clinic · 2023</p>
+        <h3 class="project-title">Medication Management System</h3>
+        <p class="project-section-label">The Challenge</p>
+        <p class="project-text">Veterinary staff faced critical inefficiencies in medication management: duplicate orders, poor inventory visibility, and time-consuming manual registration of withdrawals — especially for controlled substances.</p>
+        <p class="project-section-label">My Role</p>
+        <p class="project-text">Researcher, user testing lead, and designer. Structured research questions, conducted user testing, and led the design process from paper prototypes through Figma mockups.</p>
+      </div>
+    </a>
+
+    <a class="project-card fade-up" href="komtek.html">
+      <div class="project-thumb">
+        <img src="https://framerusercontent.com/images/w18KSKC0w46CjjIGx1bqiV4xM.png" alt="KOMTEK User Personas">
+        <span class="project-label">Internship</span>
+      </div>
+      <div class="project-content">
+        <p class="project-meta">Norkart Lillehammer · 2024</p>
+        <h3 class="project-title">KOMTEK User Personas</h3>
+        <p class="project-section-label">The Challenge</p>
+        <p class="project-text">Norkart had built product strategy around user personas based on assumptions rather than data. With thousands of municipal workers using KOMTEK daily, product decisions were built on speculation, not evidence.</p>
+        <p class="project-section-label">My Role</p>
+        <p class="project-text">Co-researcher and UX designer. Designed the research methodology, conducted interviews, processed data, and synthesized findings into personas.</p>
+      </div>
+    </a>
+
+    <a class="project-card fade-up" href="ntnu.html">
+      <div class="project-thumb">
+        <img src="https://framerusercontent.com/images/R2Tv27wF6tLptDTnqmygd1quoho.png" alt="NTNU Web Design">
+        <span class="project-label">Study Project</span>
+      </div>
+      <div class="project-content">
+        <p class="project-meta">NTNU Gjøvik · 2024</p>
+        <h3 class="project-title">NTNU Gjøvik One-Year Study Program</h3>
+        <p class="project-section-label">The Challenge</p>
+        <p class="project-text">Develop comprehensive web development and design skills across the full stack — from visual design principles to backend databases — with emphasis on functional, accessible, and user-friendly solutions.</p>
+        <p class="project-section-label">What I Learned</p>
+        <p class="project-text">The program balanced theory and practical application, with real projects challenging me to solve complex problems iteratively.</p>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- TOOLBOX -->
+<section id="toolbox">
+  <div class="toolbox-blob"></div>
+  <h2 class="section-title fade-up">My toolbox</h2>
+  <div class="toolbox-grid">
+    <div class="toolbox-group fade-up">
+      <h3 class="toolbox-group-title">Design</h3>
+      <div class="tool-list">
+        <span class="tool-chip">Figma</span>
+        <span class="tool-chip">Miro</span>
+        <span class="tool-chip">Atomic Design</span>
+        <span class="tool-chip">User Research</span>
+        <span class="tool-chip">Accessibility</span>
+      </div>
+    </div>
+    <div class="toolbox-group fade-up">
+      <h3 class="toolbox-group-title">Frontend</h3>
+      <div class="tool-list">
+        <span class="tool-chip">HTML5</span>
+        <span class="tool-chip">CSS3</span>
+        <span class="tool-chip">JavaScript</span>
+        <span class="tool-chip">Responsive Design</span>
+      </div>
+    </div>
+    <div class="toolbox-group fade-up">
+      <h3 class="toolbox-group-title">Backend</h3>
+      <div class="tool-list">
+        <span class="tool-chip">PHP</span>
+        <span class="tool-chip">MySQL</span>
+        <span class="tool-chip">Linux</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about-me">
+  <img
+    class="about-photo fade-up"
+    src="https://framerusercontent.com/images/ZoAqCsMih38B9ov5My2VdZgyazw.jpg"
+    alt="Toril Hokseggen"
+  />
+  <div class="fade-up">
+    <h2 class="section-title">About me</h2>
+    <p class="about-text">I'm a UX designer focused on solving complex problems for people in vulnerable situations. I combine user research, technical understanding, and inclusive design principles to create solutions that are intuitive, accessible, and kind. I'm particularly passionate about welfare technology and accessibility.</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="contact-label fade-up">Get in touch</p>
+  <h2 class="section-title fade-up">Let's work together</h2>
+  <div class="contact-links fade-up">
+    <a class="contact-link" href="https://www.linkedin.com/in/toril-hokseggen/" target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+      LinkedIn
+    </a>
+    <a class="contact-link" href="mailto:torilhokseggen@gmail.com">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></svg>
+      Mail
+    </a>
+    <a class="contact-link" href="https://github.com/totoril" target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+      GitHub
+    </a>
+  </div>
+</section>
+
+<footer>
+  © 2025 Toril Hokseggen
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
