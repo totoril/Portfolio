@@ -5,432 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Toril Hokseggen – UX Designer</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --pink: #e8c4c4;
-    --pink-light: #f5e6e6;
-    --pink-mid: #d4a0a0;
-    --cream: #faf6f2;
-    --warm-white: #fdf9f7;
-    --text: #2a1f1f;
-    --text-muted: #7a6060;
-    --accent: #c47a7a;
-    --card-bg: #fff8f5;
-    --blob: #e8c4c4;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--cream);
-    color: var(--text);
-    overflow-x: hidden;
-  }
-
-  /* NAV */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 60px;
-    background: rgba(250,246,242,0.92);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(232,196,196,0.3);
-  }
-
-  .nav-logo {
-    width: 44px;
-    height: 44px;
-    background: var(--pink);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Playfair Display', serif;
-    font-size: 20px;
-    font-weight: 900;
-    color: var(--text);
-    text-decoration: none;
-    transition: transform 0.2s;
-  }
-  .nav-logo:hover { transform: rotate(-5deg) scale(1.05); }
-
-  .nav-links {
-    display: flex;
-    gap: 36px;
-    list-style: none;
-  }
-
-  .nav-links a {
-    text-decoration: none;
-    color: var(--text-muted);
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--text); }
-
-  /* HERO */
-  #front {
-    min-height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
-    padding: 120px 60px 80px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero-blob {
-    position: absolute;
-    width: 520px;
-    height: 520px;
-    background: var(--pink-light);
-    border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
-    top: 80px;
-    left: -80px;
-    z-index: 0;
-    animation: blobFloat 8s ease-in-out infinite;
-  }
-
-  @keyframes blobFloat {
-    0%, 100% { border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%; transform: translateY(0); }
-    50% { border-radius: 40% 60% 45% 55% / 60% 40% 55% 45%; transform: translateY(-16px); }
-  }
-
-  .hero-photo-wrap {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    justify-content: center;
-  }
-
-  .hero-photo {
-    width: 340px;
-    height: 420px;
-    object-fit: cover;
-    border-radius: 40% 60% 50% 50% / 40% 40% 60% 60%;
-    border: 6px solid white;
-    box-shadow: 0 20px 60px rgba(196,122,122,0.2);
-  }
-
-  .hero-text {
-    position: relative;
-    z-index: 1;
-    padding-left: 40px;
-  }
-
-  .hero-tag {
-    display: inline-block;
-    background: var(--pink);
-    color: var(--text);
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 6px 14px;
-    border-radius: 20px;
-    margin-bottom: 20px;
-  }
-
-  .hero-name {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(44px, 5vw, 72px);
-    font-weight: 900;
-    line-height: 1.05;
-    margin-bottom: 20px;
-    color: var(--text);
-  }
-
-  .hero-tagline {
-    font-size: 18px;
-    font-weight: 500;
-    color: var(--accent);
-    font-style: italic;
-    margin-bottom: 8px;
-  }
-
-  /* SECTION TITLES */
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(36px, 4vw, 56px);
-    font-weight: 900;
-    margin-bottom: 48px;
-    color: var(--text);
-  }
-
-  /* PROJECTS */
-  #projects {
-    padding: 100px 60px;
-    background: var(--warm-white);
-  }
-
-  .projects-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-  }
-
-  .project-card {
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    background: var(--card-bg);
-    border-radius: 24px;
-    overflow: hidden;
-    border: 1px solid rgba(232,196,196,0.4);
-    box-shadow: 0 4px 24px rgba(196,122,122,0.08);
-    text-decoration: none;
-    color: inherit;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-  }
-
-  .project-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 16px 48px rgba(196,122,122,0.18);
-  }
-
-  .project-thumb {
-    position: relative;
-    background: var(--pink-light);
-    overflow: hidden;
-  }
-
-  .project-thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.4s ease;
-  }
-
-  .project-card:hover .project-thumb img {
-    transform: scale(1.05);
-  }
-
-  .project-label {
-    position: absolute;
-    bottom: 12px;
-    left: 12px;
-    background: rgba(42,31,31,0.82);
-    color: white;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 5px 10px;
-    border-radius: 6px;
-  }
-
-  .project-content {
-    padding: 32px 36px;
-  }
-
-  .project-meta {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-bottom: 8px;
-    font-weight: 500;
-    letter-spacing: 0.03em;
-  }
-
-  .project-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 20px;
-    line-height: 1.2;
-  }
-
-  .project-section-label {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 6px;
-  }
-
-  .project-text {
-    font-size: 14px;
-    line-height: 1.7;
-    color: var(--text-muted);
-    margin-bottom: 16px;
-  }
-
-  /* TOOLBOX */
-  #toolbox {
-    padding: 100px 60px;
-    background: var(--cream);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .toolbox-blob {
-    position: absolute;
-    width: 400px;
-    height: 400px;
-    background: var(--pink-light);
-    border-radius: 55% 45% 60% 40% / 45% 55% 45% 55%;
-    right: -100px;
-    bottom: -80px;
-    z-index: 0;
-  }
-
-  .toolbox-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    position: relative;
-    z-index: 1;
-    max-width: 760px;
-  }
-
-  .toolbox-group {
-    background: var(--card-bg);
-    border-radius: 20px;
-    padding: 28px;
-    border: 1px solid rgba(232,196,196,0.4);
-  }
-
-  .toolbox-group-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 16px;
-    color: var(--text);
-  }
-
-  .tool-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .tool-chip {
-    background: var(--pink-light);
-    color: var(--text);
-    font-size: 12px;
-    font-weight: 500;
-    padding: 5px 12px;
-    border-radius: 20px;
-    white-space: nowrap;
-  }
-
-  /* ABOUT */
-  #about-me {
-    padding: 100px 60px;
-    background: var(--warm-white);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
-  }
-
-  .about-photo {
-    width: 100%;
-    max-width: 380px;
-    aspect-ratio: 4/5;
-    object-fit: cover;
-    border-radius: 30px;
-    box-shadow: 0 20px 60px rgba(196,122,122,0.15);
-  }
-
-  .about-text {
-    font-size: 17px;
-    line-height: 1.8;
-    color: var(--text-muted);
-    margin-bottom: 32px;
-  }
-
-  /* CONTACT */
-  #contact {
-    padding: 80px 60px;
-    background: var(--cream);
-    text-align: center;
-  }
-
-  .contact-label {
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 12px;
-  }
-
-  .contact-links {
-    display: flex;
-    justify-content: center;
-    gap: 24px;
-    margin-top: 32px;
-  }
-
-  .contact-link {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--card-bg);
-    border: 1px solid rgba(232,196,196,0.5);
-    color: var(--text);
-    text-decoration: none;
-    padding: 12px 24px;
-    border-radius: 50px;
-    font-size: 14px;
-    font-weight: 500;
-    transition: background 0.2s, transform 0.2s;
-  }
-  .contact-link:hover {
-    background: var(--pink);
-    transform: translateY(-2px);
-  }
-
-  /* ANIMATIONS */
-  .fade-up {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-  .fade-up.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* FOOTER */
-  footer {
-    text-align: center;
-    padding: 24px;
-    font-size: 12px;
-    color: var(--text-muted);
-    border-top: 1px solid rgba(232,196,196,0.3);
-  }
-
-  @media (max-width: 900px) {
-    nav { padding: 16px 24px; }
-    #front { grid-template-columns: 1fr; padding: 100px 24px 60px; text-align: center; }
-    .hero-text { padding-left: 0; margin-top: 32px; }
-    .hero-blob { width: 300px; height: 300px; }
-    .hero-photo { width: 240px; height: 300px; }
-    #projects { padding: 60px 24px; }
-    .project-card { grid-template-columns: 1fr; }
-    .project-thumb { height: 200px; }
-    #toolbox { padding: 60px 24px; }
-    .toolbox-grid { grid-template-columns: 1fr; }
-    #about-me { grid-template-columns: 1fr; padding: 60px 24px; gap: 40px; }
-    #contact { padding: 60px 24px; }
-    .contact-links { flex-direction: column; align-items: center; }
-  }
-</style>
+<link rel="stylesheet" href="style.css">
+<script src="index.js" defer></script>
 </head>
+
 <body>
 
 <nav>
-  <a href="#front" class="nav-logo">TH</a>
+  <a href="#front" class="nav-logo"><img src="/imgs/Logo-pink.png" alt="Toril Hokseggen Logo"></a>
   <ul class="nav-links">
     <li><a href="#projects">Projects</a></li>
     <li><a href="#toolbox">Skills</a></li>
@@ -461,7 +43,7 @@
   <h2 class="section-title fade-up">Projects</h2>
   <div class="projects-grid">
 
-    <a class="project-card fade-up" href="curly-girls-world.html">
+    <a class="project-card fade-up" href="/projects/the-curly-girls-world.html">
       <div class="project-thumb">
         <img src="https://framerusercontent.com/images/Rgjum9WJZYURgWnTzXOZLa22EUY.png" alt="The Curly Girls World">
         <span class="project-label">E-commerce</span>
@@ -476,7 +58,7 @@
       </div>
     </a>
 
-    <a class="project-card fade-up" href="anicura.html">
+    <a class="project-card fade-up" href="/projects/anicura.html">
       <div class="project-thumb">
         <img src="https://framerusercontent.com/images/rcqksGRQJK19qSiA8ifFxCP66HM.png" alt="AniCura Medication Management">
         <span class="project-label">Bachelor Thesis</span>
@@ -491,7 +73,7 @@
       </div>
     </a>
 
-    <a class="project-card fade-up" href="komtek.html">
+    <a class="project-card fade-up" href="/projects/komtek.html">
       <div class="project-thumb">
         <img src="https://framerusercontent.com/images/w18KSKC0w46CjjIGx1bqiV4xM.png" alt="KOMTEK User Personas">
         <span class="project-label">Internship</span>
@@ -506,7 +88,7 @@
       </div>
     </a>
 
-    <a class="project-card fade-up" href="ntnu.html">
+    <a class="project-card fade-up" href="/projects/ntnu.html">
       <div class="project-thumb">
         <img src="https://framerusercontent.com/images/R2Tv27wF6tLptDTnqmygd1quoho.png" alt="NTNU Web Design">
         <span class="project-label">Study Project</span>
@@ -596,16 +178,5 @@
   © 2025 Toril Hokseggen
 </footer>
 
-<script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 80);
-      }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-</script>
 </body>
 </html>
